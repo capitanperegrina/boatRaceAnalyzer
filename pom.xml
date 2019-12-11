@@ -5,6 +5,12 @@
     http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
+	<parent>
+	    <groupId>org.springframework.boot</groupId>
+	    <artifactId>spring-boot-starter-parent</artifactId>
+	    <version>2.0.3.RELEASE</version>
+	</parent>
+
 	<groupId>com.capitanperegrina</groupId>
 	<artifactId>boat-race-analyzer</artifactId>
 	<version>0.1-SNAPSHOT</version>
@@ -19,7 +25,8 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<com.capitanperegrina.common.version>1.5.3</com.capitanperegrina.common.version>
 		<com.capitanperegrina.version>${project.version}</com.capitanperegrina.version>
-		<spring.version>4.3.9.RELEASE</spring.version>
+		<spring.version>5.2.1.RELEASE</spring.version>
+		<spring-boot.version>2.0.3.RELEASE</spring-boot.version>
         <slf4j.version>1.7.25</slf4j.version>
 	</properties>
 
@@ -27,11 +34,59 @@
 		<dependencies>
 	
 			<dependency>
+				<groupId>com.capitanperegrina.boat-race-analyzer</groupId>
+				<artifactId>boat-race-analyzer-api</artifactId>
+			    <version>${project.version}</version>		
+			</dependency>
+	
+			<dependency>
+				<groupId>com.capitanperegrina.boat-race-analyzer</groupId>
+				<artifactId>boat-race-analyzer-impl</artifactId>
+			    <version>${project.version}</version>		
+			</dependency>
+	
+			<dependency>
+				<groupId>com.capitanperegrina.boat-race-analyzer</groupId>
+				<artifactId>boat-race-analyzer-util</artifactId>
+			    <version>${project.version}</version>
+			</dependency>
+			
+			<dependency>
+			    <groupId>org.springframework</groupId>
+			    <artifactId>spring-core</artifactId>
+			    <version>${spring.version}</version>
+			</dependency>
+			
+			<dependency>
+			    <groupId>org.springframework</groupId>
+			    <artifactId>spring-context</artifactId>
+			    <version>${spring.version}</version>
+			</dependency>
+			
+			<dependency>
+			    <groupId>org.springframework.boot</groupId>
+			    <artifactId>spring-boot-starter</artifactId>
+			    <version>${spring-boot.version}</version>
+			</dependency>
+
+			<dependency>
 			    <groupId>org.apache.commons</groupId>
 			    <artifactId>commons-lang3</artifactId>
 			    <version>3.9</version>
 			</dependency>
 			
+			<dependency>
+			    <groupId>org.apache.commons</groupId>
+			    <artifactId>commons-collections4</artifactId>
+			    <version>4.4</version>
+			</dependency>
+
+			<dependency>
+				<groupId>commons-io</groupId>
+				<artifactId>commons-io</artifactId>
+				<version>2.6</version>
+			</dependency>
+
 			<dependency>
 				<groupId>org.slf4j</groupId>
 				<artifactId>slf4j-log4j12</artifactId>
@@ -65,7 +120,10 @@
 		<module>boat-race-analyzer-api</module>
 		<module>boat-race-analyzer-impl</module>
 		<module>boat-race-analyzer-util</module>
+		<module>boat-race-analyzer-console-boot</module>
+		<!--
 		<module>boat-race-analyzer-bin</module>
+		-->
 	</modules>
 
 </project>  
