@@ -70,6 +70,18 @@
 			</dependency>
 
 			<dependency>
+			    <groupId>org.eclipse.swt</groupId>
+			    <artifactId>org.eclipse.swt.win32.win32.x86_64</artifactId>
+			    <version>4.3</version>
+			</dependency>
+
+			<dependency>
+			    <groupId>org.eclipse</groupId>
+			    <artifactId>swt</artifactId>
+			    <version>3.3.0-v3346</version>
+			</dependency>
+
+			<dependency>
 			    <groupId>org.apache.commons</groupId>
 			    <artifactId>commons-lang3</artifactId>
 			    <version>3.9</version>
@@ -121,6 +133,7 @@
 		<module>boat-race-analyzer-impl</module>
 		<module>boat-race-analyzer-util</module>
 		<module>boat-race-analyzer-console-boot</module>
+		<module>boat-race-analyzer-cliapp</module>
 		<!--
 		<module>boat-race-analyzer-bin</module>
 		-->
