@@ -5,6 +5,12 @@ import java.util.Date;
 
 public class EstelaCSV {
 
+    public static final int TIME = 0;
+    public static final int LATITUDE = 1;
+    public static final int LONGITUDE = 2;
+    public static final int SPEED_OVER_GROUND = 3;
+    public static final int COURSE_OVER_GROUND = 4;
+    
 	private Date time;
 	private BigDecimal lat;
 	private BigDecimal lon;
