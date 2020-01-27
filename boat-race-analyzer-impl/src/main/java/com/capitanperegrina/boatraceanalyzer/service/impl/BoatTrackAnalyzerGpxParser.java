@@ -7,7 +7,6 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.capitanperegrina.boatraceanalyzer.beans.TrackLineBean;
@@ -16,32 +15,24 @@ import com.capitanperegrina.boatraceanalyzer.elements.TrackLineSegment;
 import com.capitanperegrina.boatraceanalyzer.elements.impl.SortedRouteImpl;
 import com.capitanperegrina.boatraceanalyzer.elements.impl.TrackLineSegmentImpl;
 import com.capitanperegrina.boatraceanalyzer.service.IBoatTrackAnalyzerGpxParser;
+import com.capitanperegrina.boatraceanalyzer.util.GpxUtils;
 import com.capitanperegrina.boatraceanalyzer.util.Nautical;
 import com.capitanperegrina.geo.elements.Line;
 import com.capitanperegrina.geo.elements.Point;
 import com.capitanperegrina.geo.elements.impl.LineImpl;
 import com.capitanperegrina.geo.elements.impl.PointImpl;
-import com.capitanperegrina.gpx.elements.GpxType;
-import com.capitanperegrina.gpx.elements.RteType;
-import com.capitanperegrina.gpx.elements.TrkType;
-import com.capitanperegrina.gpx.elements.TrksegType;
-import com.capitanperegrina.gpx.elements.WptType;
-import com.capitanperegrina.gpx.service.IGpxParser;
-import com.capitanperegrina.gpx.service.impl.GpxParserImpl;
+import com.capitanperegrina.gpx.elements.*;
 
 @Service
-public class BoatTrackAnalyzerGpxParser extends GpxParserImpl implements IBoatTrackAnalyzerGpxParser {
+public class BoatTrackAnalyzerGpxParser implements IBoatTrackAnalyzerGpxParser {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(BoatTrackAnalyzerGpxParser.class);
-	
-	@Autowired(required = false)
-	IGpxParser gpxParser;
 	
 	@Override
 	public SortedRoute sortedRouteParse(String filename) {
 		try {
 			File fileRecorrido = new File(filename);
-			GpxType gpxRecorrido = this.gpxParser.parse(fileRecorrido.getAbsolutePath());
+			GpxType gpxRecorrido = GpxUtils.parse(fileRecorrido.getAbsolutePath());
 			
 			SortedRoute ret = new SortedRouteImpl();
 			
@@ -95,7 +86,7 @@ public class BoatTrackAnalyzerGpxParser extends GpxParserImpl implements IBoatTr
 			// Parseamos el fichero con la traza.
 			File file = new File(filename);
 			String fileIn = file.getAbsolutePath();
-			GpxType gpx = this.gpxParser.parse(fileIn);
+			GpxType gpx = GpxUtils.parse(fileIn);
 
 			List<WptType> trackPoints = new ArrayList<>();
 			List<TrkType> tracks = gpx.getTrk();

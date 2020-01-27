@@ -7,6 +7,7 @@ public class GlobalsNaming {
 	private GlobalsNaming() {
 		super();
 	}
+    public static final String APP_NAME = "Boat Track Analyzer";
 	
 	public static final SimpleDateFormat DATE_TIME_FORMATTER = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 	public static final SimpleDateFormat TIME_FORMATTER = new SimpleDateFormat("HH:mm:ss");
