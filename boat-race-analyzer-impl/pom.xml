@@ -18,6 +18,41 @@
 
 	<dependencies>
 
+		<dependency>
+			<groupId>com.capitanperegrina.boat-race-analyzer</groupId>
+			<artifactId>boat-race-analyzer-api</artifactId>
+		</dependency>
+	
+		<dependency>
+			<groupId>com.capitanperegrina.boat-race-analyzer</groupId>
+			<artifactId>boat-race-analyzer-util</artifactId>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-core</artifactId>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-context</artifactId>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.apache.commons</groupId>
+		    <artifactId>commons-collections4</artifactId>
+		</dependency>
+			
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+		</dependency>
+
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+        </dependency>
+
 	</dependencies>
 
 	<build>

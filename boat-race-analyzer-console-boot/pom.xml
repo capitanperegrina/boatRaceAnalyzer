@@ -10,9 +10,9 @@
 	</parent>
 	
 	<groupId>com.capitanperegrina.boat-race-analyzer</groupId>
-	<artifactId>boat-race-analyzer-util</artifactId>
+	<artifactId>boat-race-analyzer-console-boot</artifactId>
 	<name>boat-race-analyzer-util</name>
-	<description>Boat Race Analyzer Utils</description>
+	<description>Boat Race Analyzer Console Application</description>
 	<url>http://www.capitanperegrina.com/boatRaceAnalyzer</url>
 	<packaging>jar</packaging>
 
@@ -24,15 +24,20 @@
 		</dependency>
 
 		<dependency>
-		    <groupId>org.apache.commons</groupId>
-		    <artifactId>commons-lang3</artifactId>
+			<groupId>com.capitanperegrina.boat-race-analyzer</groupId>
+			<artifactId>boat-race-analyzer-impl</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.capitanperegrina.boat-race-analyzer</groupId>
+			<artifactId>boat-race-analyzer-util</artifactId>
 		</dependency>
 		
 		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter</artifactId>
 		</dependency>
-
+			
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
@@ -50,13 +55,16 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.6.2</version>
 				<configuration>
                     <debug>true</debug>
 					<source>${maven.compiler.source}</source>
 					<target>${maven.compiler.target}</target>
 				</configuration>
 			</plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
 		</plugins>	
 	</build>  
 </project>
