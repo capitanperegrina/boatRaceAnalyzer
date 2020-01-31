@@ -1,5 +1,7 @@
 package com.capitanperegrina.boatraceanalyzer.util;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,15 +15,16 @@ public class OpenStreetMapHtmlGenerator {
         
     }
     
-    public static final String getHtml( GPX gpx ) {
+    public static final String getHtml( GPX route, List<GPX> gpxTracks ) {
     	StringBuilder s = new StringBuilder();
 
     	StringBuilder name = new StringBuilder();
-    	if ( gpx.getMetadata().isPresent() && gpx.getMetadata().get().getDescription().isPresent() ) {
-    		name.append(gpx.getMetadata().get().getDescription().get());
+    	if ( route.getMetadata().isPresent() && route.getMetadata().get().getDescription().isPresent() ) {
+    		name.append(route.getMetadata().get().getDescription().get());
     		name.append(" - ");
     	}
-    	name.append(gpx.getCreator());
+    	name.append(route.getCreator());
+
     	s.append("<!DOCTYPE html>\r\n"); 
     	s.append("<html>\r\n"); 
     	s.append("\r\n"); 

@@ -27,6 +27,10 @@ import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.capitanperegrina.boatraceanalyzer.exceptions.ServiceErrorException;
 import com.capitanperegrina.boatraceanalyzer.naming.GlobalsNaming;
 import com.capitanperegrina.estela.EstelaCSV;
 import com.capitanperegrina.gpx.elements.GpxType;
@@ -40,8 +44,40 @@ import io.jenetics.jpx.TrackSegment;
 
 public class EstelaUtils {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(EstelaUtils.class);
+    
+    private EstelaUtils() {
+        
+    }
+    
 	private static final SimpleDateFormat SDF_IN = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	private static final SimpleDateFormat SDF_OUT = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+	
+	public static List<EstelaCSV> readEstelaCsvFile(String fileName) {
+        
+	    List<EstelaCSV> ret = new ArrayList<>();
+	    Path pathToFile = Paths.get(fileName);
+        try (BufferedReader br = Files.newBufferedReader(pathToFile, StandardCharsets.UTF_8)) {
+            String line = br.readLine();
+            while (line != null) {
+                String[] columns = line.split(GlobalsNaming.CSV_SEPARATOR);
+                if (!columns[EstelaCSV.TIME].equals("time")) {
+                    ret.add(new EstelaCSV(SDF_IN.parse(columns[EstelaCSV.TIME].replace("+00:00", "").replace("T", " ")),
+                            new BigDecimal(columns[EstelaCSV.LATITUDE]), new BigDecimal(columns[EstelaCSV.LONGITUDE]),
+                            new BigDecimal(columns[EstelaCSV.SPEED_OVER_GROUND]),
+                            new BigDecimal(columns[EstelaCSV.COURSE_OVER_GROUND])));
+                }
+                line = br.readLine();
+            }
+            return ret;
+        } catch (IOException ioe) {
+            LOGGER.error(ioe.getMessage(),ioe);
+            throw new ServiceErrorException(fileName, ioe);
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage(),e);
+            throw new ServiceErrorException(fileName, e);
+        }       
+    }
 
 	public static void estelaCsv2Gpx(String boatName, String fileNameIn, String fileNameOut, GPX.Version version) {
 
