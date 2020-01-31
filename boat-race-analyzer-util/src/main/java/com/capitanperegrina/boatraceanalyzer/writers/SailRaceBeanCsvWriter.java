@@ -43,11 +43,19 @@ public class SailRaceBeanCsvWriter {
 				}
 				BoatPositionBean bp = new BoatPositionBean();
 				bp.setCog(new BigDecimal(ls.getCog()));
-				bp.setDtd(new BigDecimal(Nautical.calculateDtd(srb.getLegs().get(entry.getKey()), ls.getPoint1(), ls.getTimeIni())));
 				bp.setPosition(ls.getPoint1());
 				bp.setSog(new BigDecimal(ls.getSog()));
 				bp.setTiempo(ls.getTime());
-				bp.setVmg(new BigDecimal(Nautical.calculateVmg(srb.getLegs().get(entry.getKey()), ls)));
+				try {
+					bp.setDtd(new BigDecimal(Nautical.calculateDtd(srb.getLegs().get(entry.getKey()), ls.getPoint1(), ls.getTimeIni())));
+				} catch ( NumberFormatException nfe ) {
+					bp.setDtd(null);
+				}
+				try {
+					bp.setVmg(new BigDecimal(Nautical.calculateVmg(srb.getLegs().get(entry.getKey()), ls)));
+				} catch ( NumberFormatException nfe ) {
+					bp.setVmg(null);
+				}
 				boatPositions.get(ls.getTimeIni())[i] = bp;
 			}
 			i++;

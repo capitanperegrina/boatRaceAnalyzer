@@ -1,13 +1,20 @@
 package com.capitanperegrina.boatraceanalyzer.util;
 
 import java.io.File;
+import java.io.IOException;
 
-import javax.xml.bind.*;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBElement;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.capitanperegrina.gpx.elements.GpxType;
+
+import io.jenetics.jpx.GPX;
 
 public class GpxUtils {
 
@@ -15,6 +22,33 @@ public class GpxUtils {
     
     private GpxUtils() {
         
+    }
+    
+    public static GPX read(String filename) {
+    	return read(filename, GPX.Version.V11);
+    }
+    
+    public static GPX read(String filename, GPX.Version version) {
+    	try {
+    		return GPX.reader(version).read(filename);    		
+    	} catch ( IOException e ) {
+    		LOGGER.error("{}",e);
+    		throw new RuntimeException(e);
+    	}
+    }
+
+    public static void write(GPX gpx, String filename) {
+    	write(gpx, filename, GPX.Version.V11);
+    }
+    
+    public static void write(GPX gpx, String filename, GPX.Version version) {
+    	try {
+    		final GPX gpxDest = gpx.toBuilder().version(version).build();    		
+    		GPX.write(gpxDest, filename);    		
+    	} catch ( IOException e ) {
+    		LOGGER.error("{}",e);
+    		throw new RuntimeException(e);
+    	}
     }
     
     @SuppressWarnings("unchecked")

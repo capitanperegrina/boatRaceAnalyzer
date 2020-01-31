@@ -21,7 +21,11 @@ import com.capitanperegrina.geo.elements.Line;
 import com.capitanperegrina.geo.elements.Point;
 import com.capitanperegrina.geo.elements.impl.LineImpl;
 import com.capitanperegrina.geo.elements.impl.PointImpl;
-import com.capitanperegrina.gpx.elements.*;
+import com.capitanperegrina.gpx.elements.GpxType;
+import com.capitanperegrina.gpx.elements.RteType;
+import com.capitanperegrina.gpx.elements.TrkType;
+import com.capitanperegrina.gpx.elements.TrksegType;
+import com.capitanperegrina.gpx.elements.WptType;
 
 @Service
 public class BoatTrackAnalyzerGpxParser implements IBoatTrackAnalyzerGpxParser {

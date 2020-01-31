@@ -15,13 +15,24 @@ public class SailRaceLegBean implements Serializable {
 	private MapElement toPosition;
 	private Date fromTime;
 	private Date toTime;
-	
+
 	public SailRaceLegBean() {
 		super();
 	}
 
+	public SailRaceLegBean(String boat, Integer legNumber, MapElement fromPosition, MapElement toPosition,
+			Date fromTime, Date toTime) {
+		super();
+		this.boat = boat;
+		this.legNumber = legNumber;
+		this.fromPosition = fromPosition;
+		this.toPosition = toPosition;
+		this.fromTime = fromTime;
+		this.toTime = toTime;
+	}
+
 	public String getBoat() {
-		return boat;
+		return this.boat;
 	}
 
 	public void setBoat(String boat) {
@@ -29,7 +40,7 @@ public class SailRaceLegBean implements Serializable {
 	}
 
 	public Integer getLegNumber() {
-		return legNumber;
+		return this.legNumber;
 	}
 
 	public void setLegNumber(Integer legNumber) {
@@ -37,7 +48,7 @@ public class SailRaceLegBean implements Serializable {
 	}
 
 	public MapElement getFromPosition() {
-		return fromPosition;
+		return this.fromPosition;
 	}
 
 	public void setFromPosition(MapElement fromPosition) {
@@ -45,7 +56,7 @@ public class SailRaceLegBean implements Serializable {
 	}
 
 	public MapElement getToPosition() {
-		return toPosition;
+		return this.toPosition;
 	}
 
 	public void setToPosition(MapElement toPosition) {
@@ -53,7 +64,7 @@ public class SailRaceLegBean implements Serializable {
 	}
 
 	public Date getFromTime() {
-		return fromTime;
+		return this.fromTime;
 	}
 
 	public void setFromTime(Date fromTime) {
@@ -61,7 +72,7 @@ public class SailRaceLegBean implements Serializable {
 	}
 
 	public Date getToTime() {
-		return toTime;
+		return this.toTime;
 	}
 
 	public void setToTime(Date toTime) {
@@ -71,9 +82,9 @@ public class SailRaceLegBean implements Serializable {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("SailRaceLeg [boat=").append(boat).append(", legNumber=").append(legNumber)
-				.append(", fromPosition=").append(fromPosition).append(", toPosition=").append(toPosition)
-				.append(", fromTime=").append(fromTime).append(", toTime=").append(toTime).append("]");
+		builder.append("SailRaceLeg [boat=").append(this.boat).append(", legNumber=").append(this.legNumber)
+				.append(", fromPosition=").append(this.fromPosition).append(", toPosition=").append(this.toPosition)
+				.append(", fromTime=").append(this.fromTime).append(", toTime=").append(this.toTime).append("]");
 		return builder.toString();
 	}
 }
