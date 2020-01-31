@@ -1,7 +1,7 @@
 package com.capitanperegrina.boatraceanalyzer.model.entity.table;
 
 import java.io.Serializable;
-import java.util.Calendar;
+import java.util.Date;
 
 /**
  * POJO identificado con la tabla <code>leg</code>
@@ -12,7 +12,7 @@ public class LegPOJO implements Serializable
 
     protected Integer idLeg ;
     protected Integer idRace ;
-    protected Calendar date ;
+    protected Date date;
     protected String name ;
 
     /**
@@ -43,12 +43,12 @@ public class LegPOJO implements Serializable
         this.idRace = idRace;
     }
 
-    public Calendar getDate()
+    public Date getDate()
     {
         return this.date;
     }
 
-    public void setDate( Calendar date )
+    public void setDate(Date date)
     {
         this.date = date;
     }
@@ -65,6 +65,6 @@ public class LegPOJO implements Serializable
 
     @Override
     public String toString() {
-        return "LegPOJO [idLeg=" + idLeg + ", idRace=" + idRace + ", date=" + date + ", name=" + name + "]";
+        return "LegPOJO [idLeg=" + this.idLeg + ", idRace=" + this.idRace + ", date=" + this.date + ", name=" + this.name + "]";
     }
 }
