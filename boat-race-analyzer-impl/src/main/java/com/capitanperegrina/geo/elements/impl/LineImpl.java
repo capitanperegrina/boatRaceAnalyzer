@@ -16,7 +16,7 @@ public class LineImpl extends MapElementImpl implements Line {
 	protected Point point1;
 	protected Point point2;
 	
-	public LineImpl(double lat1, double lon1, double lat2, double lon2) {;
+	public LineImpl(double lat1, double lon1, double lat2, double lon2) {
 		Point a = new PointImpl(lat1, lon1);
 		Point b = new PointImpl(lat2, lon2);
 		this.point1 = a;
@@ -108,6 +108,33 @@ public class LineImpl extends MapElementImpl implements Line {
 				/ (this.point2.getLatitude() - this.point1.getLatitude())));
 		return Math.abs(angulo);
 	}
+	
+	@Override
+	public double getAngle(MapElement mel) {
+		if ( mel instanceof Point ) {
+			Point p = (Point) mel;
+			double angulo1 = this.getAngle();
+			double angulo2 = new LineImpl(this.point1, p).getAngle();
+			double ret = angulo2 - angulo1;
+			if ( ret < -180 ) {
+				ret = ret + 180;
+			} else if ( ret > 180 ) {
+				ret = ret - 180;
+			}
+			return ret;
+		} else if ( mel instanceof Line ) {
+			Line l = (Line) mel;
+			double r1 = l.getAngle(l.getPoint1());
+			double r2 = l.getAngle(l.getPoint2());
+			if ( Math.abs(r1) <= Math.abs(r2)) {
+				return r1;
+			} else {
+				return r2;
+			}
+		} else {
+			return Double.NaN;
+		}
+	}
 
 	@Override
 	public Line rotate(double angulo, Point anchor) {
@@ -117,8 +144,8 @@ public class LineImpl extends MapElementImpl implements Line {
 	@Override
 	public Point centralPosition() {
 		return new PointImpl( 
-				( this.point1.getLongitude() + this.point2.getLongitude() / 2 ),
-				( this.point1.getLatitude() + this.point2.getLatitude() ) / 2 );
+				( ( this.point1.getLatitude() + this.point2.getLatitude() ) / 2 ),
+				( ( this.point1.getLongitude() + this.point2.getLongitude() ) / 2 ) );
 	}
 
 	@Override
@@ -140,7 +167,7 @@ public class LineImpl extends MapElementImpl implements Line {
 		if (this.doIntersect(otherLine)) {
 			return 0d;
 		}
-		List<Double> lista = new ArrayList<Double>(4);
+		List<Double> lista = new ArrayList<>(4);
 		lista.add(this.distanceInMeters(otherLine.getPoint1()));
 		lista.add(this.distanceInMeters(otherLine.getPoint2()));
 		lista.add(otherLine.distanceInMeters(this.getPoint1()));
@@ -303,7 +330,7 @@ public class LineImpl extends MapElementImpl implements Line {
 	
 	@Override
 	public Point getPoint1() {
-		return point1;
+		return this.point1;
 	}
 	
 	@Override
@@ -313,7 +340,7 @@ public class LineImpl extends MapElementImpl implements Line {
 	
 	@Override
 	public Point getPoint2() {
-		return point2;
+		return this.point2;
 	}
 	
 	@Override
@@ -325,8 +352,8 @@ public class LineImpl extends MapElementImpl implements Line {
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result + ((point1 == null) ? 0 : point1.hashCode());
-		result = prime * result + ((point2 == null) ? 0 : point2.hashCode());
+		result = prime * result + ((this.point1 == null) ? 0 : this.point1.hashCode());
+		result = prime * result + ((this.point2 == null) ? 0 : this.point2.hashCode());
 		return result;
 	}
 
@@ -339,15 +366,15 @@ public class LineImpl extends MapElementImpl implements Line {
 		if (getClass() != obj.getClass())
 			return false;
 		LineImpl other = (LineImpl) obj;
-		if (point1 == null) {
+		if (this.point1 == null) {
 			if (other.point1 != null)
 				return false;
-		} else if (!point1.equals(other.point1))
+		} else if (!this.point1.equals(other.point1))
 			return false;
-		if (point2 == null) {
+		if (this.point2 == null) {
 			if (other.point2 != null)
 				return false;
-		} else if (!point2.equals(other.point2))
+		} else if (!this.point2.equals(other.point2))
 			return false;
 		return true;
 	}
@@ -355,8 +382,8 @@ public class LineImpl extends MapElementImpl implements Line {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("LineImpl [point1=").append(point1).append(", point2=").append(point2).append(", name=")
-				.append(name).append(", type=").append(type).append("]");
+		builder.append("LineImpl [point1=").append(this.point1).append(", point2=").append(this.point2).append(", name=")
+				.append(this.name).append(", type=").append(this.type).append("]");
 		return builder.toString();
 	}
 }

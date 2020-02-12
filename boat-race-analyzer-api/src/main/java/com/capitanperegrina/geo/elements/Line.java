@@ -12,11 +12,13 @@ public interface Line extends MapElement {
 	
 	// Other methods.
 	
-	public double slope();	
+	double slope();	
 	
 	double getCog();
 	
 	double getAngle();
+	
+	double getAngle(MapElement el);
 
 	boolean doIntersect(Line otraLinea);
 

@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -62,7 +63,11 @@ public class EstelaUtils {
             while (line != null) {
                 String[] columns = line.split(GlobalsNaming.CSV_SEPARATOR);
                 if (!columns[EstelaCSV.TIME].equals("time")) {
-                    ret.add(new EstelaCSV(SDF_IN.parse(columns[EstelaCSV.TIME].replace("+00:00", "").replace("T", " ")),
+                	
+                	Calendar c = Calendar.getInstance();
+                	c.setTime(SDF_IN.parse(columns[EstelaCSV.TIME].replace("+00:00", "").replace("T", " ")));
+                	c.add(Calendar.HOUR, 1);
+                    ret.add(new EstelaCSV(c.getTime(),
                             new BigDecimal(columns[EstelaCSV.LATITUDE]), new BigDecimal(columns[EstelaCSV.LONGITUDE]),
                             new BigDecimal(columns[EstelaCSV.SPEED_OVER_GROUND]),
                             new BigDecimal(columns[EstelaCSV.COURSE_OVER_GROUND])));

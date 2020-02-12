@@ -5,6 +5,7 @@ import java.awt.geom.Point2D;
 
 import com.capitanperegrina.boatraceanalyzer.enums.MapElementType;
 import com.capitanperegrina.boatraceanalyzer.util.Nautical;
+import com.capitanperegrina.geo.elements.Line;
 import com.capitanperegrina.geo.elements.MapElement;
 import com.capitanperegrina.geo.elements.Point;
 import com.capitanperegrina.geo.naming.GeoNaming;
@@ -43,6 +44,8 @@ public class PointImpl extends MapElementImpl implements Point {
 	public double distanceInMeters(MapElement otherElement) {
 		if ( otherElement instanceof Point ) {
 			return this.distanceInMeters((Point) otherElement);
+		} if ( otherElement instanceof Line ) {
+			return otherElement.distanceInMeters(this);
 		} else {
 			return Double.NaN;
 		}
@@ -137,7 +140,7 @@ public class PointImpl extends MapElementImpl implements Point {
 
 	@Override
 	public double getLatitude() {
-		return latitude;
+		return this.latitude;
 	}
 
 	@Override
@@ -147,7 +150,7 @@ public class PointImpl extends MapElementImpl implements Point {
 
 	@Override
 	public double getLongitude() {
-		return longitude;
+		return this.longitude;
 	}
 
 	@Override
@@ -160,9 +163,9 @@ public class PointImpl extends MapElementImpl implements Point {
 		final int prime = 31;
 		int result = super.hashCode();
 		long temp;
-		temp = Double.doubleToLongBits(latitude);
+		temp = Double.doubleToLongBits(this.latitude);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
-		temp = Double.doubleToLongBits(longitude);
+		temp = Double.doubleToLongBits(this.longitude);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
 		return result;
 	}
@@ -176,9 +179,9 @@ public class PointImpl extends MapElementImpl implements Point {
 		if (getClass() != obj.getClass())
 			return false;
 		PointImpl other = (PointImpl) obj;
-		if (Double.doubleToLongBits(latitude) != Double.doubleToLongBits(other.latitude))
+		if (Double.doubleToLongBits(this.latitude) != Double.doubleToLongBits(other.latitude))
 			return false;
-		if (Double.doubleToLongBits(longitude) != Double.doubleToLongBits(other.longitude))
+		if (Double.doubleToLongBits(this.longitude) != Double.doubleToLongBits(other.longitude))
 			return false;
 		return true;
 	}
@@ -186,8 +189,8 @@ public class PointImpl extends MapElementImpl implements Point {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("PointImpl [latitude=").append(latitude).append(", longitude=").append(longitude)
-				.append(", name=").append(name).append(", type=").append(type).append("]");
+		builder.append("PointImpl [latitude=").append(this.latitude).append(", longitude=").append(this.longitude)
+				.append(", name=").append(this.name).append(", type=").append(this.type).append("]");
 		return builder.toString();
 	}
 }

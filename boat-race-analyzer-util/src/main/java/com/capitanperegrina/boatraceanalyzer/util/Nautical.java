@@ -14,8 +14,8 @@ import com.capitanperegrina.boatraceanalyzer.elements.TrackLineSegment;
 import com.capitanperegrina.geo.elements.MapElement;
 
 public class Nautical {
-	private static final Map<Integer, String> iconosHtmlString = new HashMap<Integer, String>(16);
-	public static final Map<String,Integer> typesByName= new HashMap<String, Integer>(5);
+	private static final Map<Integer, String> iconosHtmlString = new HashMap<>(16);
+	public static final Map<String,Integer> typesByName= new HashMap<>(5);
 	
 	public static final String NOMBRE_PIN_SALIDA = "Pin Salida";
 	public static final String NOMBRE_CR_SALIDA = "CR Salida";
@@ -209,7 +209,7 @@ public class Nautical {
 		if ( d==null ) {
 			return "";
 		}
-		DecimalFormat formato = new DecimalFormat("0.000");
+		DecimalFormat formato = new DecimalFormat("0.0");
 		return StringUtils.leftPad(formato.format(d), 6, ' ');
 	}
 	
