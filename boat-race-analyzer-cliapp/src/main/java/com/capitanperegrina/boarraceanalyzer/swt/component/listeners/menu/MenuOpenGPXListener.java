@@ -6,10 +6,6 @@ import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Shell;
 
-import com.capitanperegrina.boatraceanalyzer.util.GpxUtils;
-
-import io.jenetics.jpx.GPX;
-
 public class MenuOpenGPXListener implements SelectionListener {
 
 	private Shell shell;
@@ -26,8 +22,8 @@ public class MenuOpenGPXListener implements SelectionListener {
 		String[] filterExt = { "*.gpx" };
 		fd.setFilterExtensions(filterExt);
 		String selected = fd.open();
-		GPX gpx = GpxUtils.read(selected,GPX.Version.V11);
-		System.out.println(gpx.toString());
+		// GPX gpx = leer archivo GPX.
+		// System.out.println(gpx.toString());
 	}
 
 	@Override

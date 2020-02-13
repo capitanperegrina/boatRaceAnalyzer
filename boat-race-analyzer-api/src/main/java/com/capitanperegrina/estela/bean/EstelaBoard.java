@@ -1,4 +1,4 @@
-package com.capitanperegrina.estela;
+package com.capitanperegrina.estela.bean;
 
 import com.capitanperegrina.boatraceanalyzer.model.entity.table.BoardPOJO;
 import com.capitanperegrina.boatraceanalyzer.model.entity.table.RoutePOJO;

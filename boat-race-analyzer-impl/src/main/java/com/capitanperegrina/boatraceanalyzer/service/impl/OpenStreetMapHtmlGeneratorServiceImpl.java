@@ -1,4 +1,4 @@
-package com.capitanperegrina.openstreetmap.leaflet;
+package com.capitanperegrina.boatraceanalyzer.service.impl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.capitanperegrina.boatraceanalyzer.service.IEstelaService;
 import com.capitanperegrina.boatraceanalyzer.service.MapHtmlGeneratorService;
-import com.capitanperegrina.estela.EstelaRace;
-import com.capitanperegrina.estela.EstelaRaceLeg;
+import com.capitanperegrina.estela.bean.EstelaRace;
+import com.capitanperegrina.estela.bean.EstelaRaceLeg;
 import com.capitanperegrina.geo.elements.Point;
 
 @Service("openStreetMapHtmlGeneratorService")

@@ -1,4 +1,4 @@
-package com.capitanperegrina.openstreetmap.leaflet;
+package com.capitanperegrina.boatraceanalyzer.service.impl;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -20,14 +20,13 @@ import com.capitanperegrina.boatraceanalyzer.service.MapHtmlGeneratorService;
 import com.capitanperegrina.boatraceanalyzer.util.ExtendedFileUtils;
 import com.capitanperegrina.boatraceanalyzer.util.IconsNamingService;
 import com.capitanperegrina.boatraceanalyzer.util.Nautical;
-import com.capitanperegrina.estela.EstelaBoard;
-import com.capitanperegrina.estela.EstelaRace;
-import com.capitanperegrina.estela.EstelaRaceLeg;
-import com.capitanperegrina.estela.EstelaTrack;
+import com.capitanperegrina.estela.bean.EstelaBoard;
+import com.capitanperegrina.estela.bean.EstelaRace;
+import com.capitanperegrina.estela.bean.EstelaRaceLeg;
+import com.capitanperegrina.estela.bean.EstelaTrack;
+import com.capitanperegrina.geo.elements.Line;
 import com.capitanperegrina.geo.elements.MapElement;
 import com.capitanperegrina.geo.elements.Point;
-import com.capitanperegrina.geo.elements.impl.LineImpl;
-import com.capitanperegrina.geo.elements.impl.PointImpl;
 
 @Service("mapHtmlGeneratorService")
 public class MapHtmlGeneratorServiceImpl implements MapHtmlGeneratorService {
@@ -172,15 +171,15 @@ public class MapHtmlGeneratorServiceImpl implements MapHtmlGeneratorService {
 					}
 					
 					if ( board != null ) {
-						Point p1 = new PointImpl(tp.getLat().doubleValue(), tp.getLon().doubleValue());
-						Point p2 = new PointImpl(tpOld.getLat().doubleValue(), tpOld.getLon().doubleValue());
+						Point p1 = new Point(tp.getLat().doubleValue(), tp.getLon().doubleValue());
+						Point p2 = new Point(tpOld.getLat().doubleValue(), tpOld.getLon().doubleValue());
 						
 						// MapElement ini = toMapElement(board.getIniRouteElement());
 						MapElement fin = toMapElement(board.getFinRouteElement());
-						Point location = new PointImpl( tp.getLat().doubleValue(), tp.getLon().doubleValue());
-						Point oldLocation = new PointImpl( tpOld.getLat().doubleValue(), tpOld.getLon().doubleValue());
+						Point location = new Point( tp.getLat().doubleValue(), tp.getLon().doubleValue());
+						Point oldLocation = new Point( tpOld.getLat().doubleValue(), tpOld.getLon().doubleValue());
 
-//						Line line = new LineImpl(p2, p1);
+//						Line line = new Line(p2, p1);
 //						double brgd = line.getAngle(fin);
 //						BigDecimal brg = Double.isNaN(brgd) ? null : new BigDecimal(brgd);
 
@@ -301,10 +300,10 @@ public class MapHtmlGeneratorServiceImpl implements MapHtmlGeneratorService {
 	
 	private static MapElement toMapElement(RoutePOJO r) {
 		if ( r.getLat2() == null ) {
-			return new PointImpl( r.getLat1().doubleValue(), r.getLon1().doubleValue() );
+			return new Point( r.getLat1().doubleValue(), r.getLon1().doubleValue() );
 		} else {
-			return new LineImpl( new PointImpl( r.getLat1().doubleValue(), r.getLon1().doubleValue() ),
-					new PointImpl( r.getLat2().doubleValue(), r.getLon2().doubleValue() ), r.getName() );
+			return new Line( new Point( r.getLat1().doubleValue(), r.getLon1().doubleValue() ),
+					new Point( r.getLat2().doubleValue(), r.getLon2().doubleValue() ), r.getName() );
 		}
 	}
 }

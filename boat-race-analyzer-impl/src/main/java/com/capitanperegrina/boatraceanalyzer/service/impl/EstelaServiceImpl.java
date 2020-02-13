@@ -24,10 +24,10 @@ import com.capitanperegrina.boatraceanalyzer.model.entity.table.TrackPOJO;
 import com.capitanperegrina.boatraceanalyzer.model.entity.table.TrackpointPOJO;
 import com.capitanperegrina.boatraceanalyzer.service.IEstelaService;
 import com.capitanperegrina.boatraceanalyzer.util.EstelaUtils;
-import com.capitanperegrina.estela.EstelaBoard;
-import com.capitanperegrina.estela.EstelaRace;
-import com.capitanperegrina.estela.EstelaRaceLeg;
-import com.capitanperegrina.estela.EstelaTrack;
+import com.capitanperegrina.estela.bean.EstelaBoard;
+import com.capitanperegrina.estela.bean.EstelaRace;
+import com.capitanperegrina.estela.bean.EstelaRaceLeg;
+import com.capitanperegrina.estela.bean.EstelaTrack;
 import com.capitanperegrina.geo.elements.Line;
 import com.capitanperegrina.geo.elements.Point;
 
