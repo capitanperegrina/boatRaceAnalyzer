@@ -1,6 +1,6 @@
 package com.capitanperegrina.boatraceanalyzer.service;
 
-import com.capitanperegrina.estela.EstelaRace;
+import com.capitanperegrina.estela.bean.EstelaRace;
 import com.capitanperegrina.geo.elements.Point;
 
 public interface IEstelaService {

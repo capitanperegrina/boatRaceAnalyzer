@@ -1,4 +1,4 @@
-package com.capitanperegrina.estela;
+package com.capitanperegrina.estela.bean;
 
 import java.util.HashMap;
 import java.util.Map;

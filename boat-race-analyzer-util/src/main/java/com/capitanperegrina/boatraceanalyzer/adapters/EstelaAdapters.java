@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.capitanperegrina.boatraceanalyzer.model.entity.table.TrackpointPOJO;
-import com.capitanperegrina.estela.EstelaCSV;
+import com.capitanperegrina.estela.bean.EstelaCSV;
 
 public class EstelaAdapters {
 

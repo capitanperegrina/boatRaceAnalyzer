@@ -2,16 +2,10 @@ package com.capitanperegrina.boatraceanalyzer.util;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import org.apache.commons.lang3.StringUtils;
-
-import com.capitanperegrina.boatraceanalyzer.beans.SailRaceLegBean;
-import com.capitanperegrina.boatraceanalyzer.elements.TrackLineSegment;
-import com.capitanperegrina.geo.elements.MapElement;
 
 public class Nautical {
 	private static final Map<Integer, String> iconosHtmlString = new HashMap<>(16);
@@ -151,24 +145,6 @@ public class Nautical {
 
 	public static double toKilometers(double nm) {
 		return toMeters(nm) / 1000;
-	}
-	
-	public static double calculateDtd(Map<Integer,SailRaceLegBean> boatLegs, MapElement position, Date time) {
-		for ( Entry<Integer,SailRaceLegBean> leg : boatLegs.entrySet() ) {
-			if ( time.after( leg.getValue().getFromTime() ) && time.before( leg.getValue().getToTime() ) ) {
-				return leg.getValue().getToPosition().distanceInMeters(position);
-			}
-		}
-		return 0d;
-	}
-	
-	public static double calculateVmg(Map<Integer,SailRaceLegBean> boatLegs, TrackLineSegment segment) {
-		for ( Entry<Integer,SailRaceLegBean> leg : boatLegs.entrySet() ) {
-			if ( segment.getTimeEnd().after( leg.getValue().getFromTime() ) && segment.getTimeEnd().before( leg.getValue().getToTime() ) ) {
-				return segment.getVmg( leg.getValue().getToPosition() );
-			}
-		}
-		return 0d;
 	}
 
 	// FORMATEADORES

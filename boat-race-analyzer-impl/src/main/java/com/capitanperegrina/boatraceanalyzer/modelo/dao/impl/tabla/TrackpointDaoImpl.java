@@ -24,8 +24,6 @@ import com.capitanperegrina.boatraceanalyzer.util.sql.QueryUtils;
 import com.capitanperegrina.boatraceanalyzer.util.sql.ResultSetUtils;
 import com.capitanperegrina.geo.elements.Line;
 import com.capitanperegrina.geo.elements.Point;
-import com.capitanperegrina.geo.elements.impl.LineImpl;
-import com.capitanperegrina.geo.elements.impl.PointImpl;
 /**
  * Objeto de acceso a datos para la tabla <code>trackpoint<code>
  */
@@ -230,13 +228,13 @@ public class TrackpointDaoImpl extends GenericDao implements TrackpointDao {
         return this.jdbcTemplate.queryForObject(q.toString(), p, new RowMapper<Line>() {
 			@Override
 			public Line mapRow(ResultSet rs, int rowNum) throws SQLException {
-				Point max = new PointImpl();
+				Point max = new Point();
 				max.setLatitude(ResultSetUtils.getDouble("MAX_LAT", rs));
 				max.setLongitude(ResultSetUtils.getDouble("MAX_LON", rs));
-				Point min = new PointImpl();
+				Point min = new Point();
 				min.setLatitude(ResultSetUtils.getDouble("MIN_LAT", rs));
 				min.setLongitude(ResultSetUtils.getDouble("MIN_LON", rs));
-				return new LineImpl(max,min);
+				return new Line(max,min);
 			}
 		});
     }
