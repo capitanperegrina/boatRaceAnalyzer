@@ -1,0 +1,33 @@
+body {
+    margin: 0;
+    font-family: Verdana, Geneva, sans-serif;
+}
+
+.izda {
+    float: left;
+}
+
+.col2 {
+    width: 50%;
+}
+
+.clearfix {
+    clear: both;
+}
+
+.title {
+    font-weight: bold;
+}
+
+#datosDerrota {
+    position: absolute;
+    top: 0px;
+    right: 10px;
+    z-index: 999;
+    width: 110px;
+    background: #fff;
+    padding: 10px;
+    margin: 7px;
+    border: 1px solid #bbbbbb;
+    font-size: .8em;
+}
