@@ -84,11 +84,13 @@ public class Point extends MapElement {
 
 		angle = angle + 90 * cuadrante;
 
-		if (angle < 0)
+		if (angle < 0) {
 			angle = angle + 360;
-
-		if (angle > 360)
+		}
+		
+		if (angle > 360) {
 			angle = angle - 360;
+		}
 
 		return angle;
 	}
