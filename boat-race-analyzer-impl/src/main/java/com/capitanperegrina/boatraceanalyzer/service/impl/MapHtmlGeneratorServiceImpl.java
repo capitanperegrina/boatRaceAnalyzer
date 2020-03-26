@@ -4,18 +4,23 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.text.StringEscapeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.capitanperegrina.boatraceanalyzer.bean.BoatNameBean;
+import com.capitanperegrina.boatraceanalyzer.bean.BoatRaceAnalysisBean;
 import com.capitanperegrina.boatraceanalyzer.model.entity.table.BoatPOJO;
 import com.capitanperegrina.boatraceanalyzer.model.entity.table.RoutePOJO;
 import com.capitanperegrina.boatraceanalyzer.model.entity.table.TrackpointPOJO;
+import com.capitanperegrina.boatraceanalyzer.service.IEstelaService;
 import com.capitanperegrina.boatraceanalyzer.service.MapHtmlGeneratorService;
 import com.capitanperegrina.boatraceanalyzer.util.ExtendedFileUtils;
 import com.capitanperegrina.boatraceanalyzer.util.IconsNamingService;
@@ -38,6 +43,39 @@ public class MapHtmlGeneratorServiceImpl implements MapHtmlGeneratorService {
 	
 	@Autowired
 	protected IconsNamingService iconsNamingService;
+	
+	@Autowired
+	protected IEstelaService estelaService;
+
+	@Override
+	public BoatRaceAnalysisBean generateBoatRaceAnalysisBean(Integer raceId, Integer legId) {
+		BoatRaceAnalysisBean ret = new BoatRaceAnalysisBean(raceId, legId);
+		EstelaRace race = this.estelaService.readEstelaRace(raceId);
+		for ( EstelaTrack track : race.getLegs().get(legId).getTracks().values() ) {
+			ret.getTracks().add(track.getTrack().getIdTrack());
+		}
+		for ( BoatPOJO boat : race.getBoats().values() ) {
+			ret.getBoats().add(new BoatNameBean( StringEscapeUtils.escapeHtml4(boat.getName()), normalizeName(boat.getName()))); 
+		}
+		ret.setCenterTrack(this.estelaService.findLegCenter(legId));
+		ret.setTitle(getTitulo(race, legId));
+		ret.setIcons(generateIcons(race.getLegs().get(legId)));
+		ret.setMarkers(generateMarkers(race.getLegs().get(legId)));
+
+		StringBuilder script = new StringBuilder();
+		for ( BoatPOJO boat : race.getBoats().values()  ) {
+			script.append(generateScript(raceId, legId, boat.getIdBoat(), race.getLegs().get(legId), race));	
+		}
+		ret.setScript(script.toString());
+		return ret;
+	}
+	
+	@Override
+	public String generateJavascriptVariableTrack(Integer raceId, Integer legId, Integer trackId) {
+		EstelaRace race = this.estelaService.readEstelaRace(raceId);
+		Integer boatId = race.getLegs().get(legId).getTracks().get(trackId).getTrack().getIdBoat();
+		return generaJson(race.getBoats().get(boatId).getName(), race.getLegs().get(legId).getTracks().get(trackId));
+	}
 
 	protected static String getTitulo(EstelaRace race, Integer idLeg) {
 		EstelaRaceLeg leg = race.getLegs().get(idLeg);
@@ -56,14 +94,14 @@ public class MapHtmlGeneratorServiceImpl implements MapHtmlGeneratorService {
 		StringBuilder icons = new StringBuilder();
 		for (RoutePOJO decoracion : leg.getDecorationElements()) {
 			String elementPrefix = "decoration_" + decoracion.getIdRoute().toString();
-			icons.append("        var " + elementPrefix).append("_icon = 'data:image/png;base64,")
+			icons.append("            var " + elementPrefix).append("_icon = 'data:image/png;base64,")
 					.append(this.iconsNamingService.getIcon(decoracion.getKind())).append("';").append(CR);
 		}
 
 		for (RoutePOJO el : leg.getRouteElements()) {
 			String elementPrefix = "decoration_" + el.getIdRoute().toString();
 			if (el.getLat2() == null) {
-				icons.append("        var " + elementPrefix).append("_icon = 'data:image/png;base64,")
+				icons.append("            var " + elementPrefix).append("_icon = 'data:image/png;base64,")
 						.append(this.iconsNamingService.getIcon(el.getKind())).append("';").append(CR);
 			}
 		}
@@ -76,7 +114,7 @@ public class MapHtmlGeneratorServiceImpl implements MapHtmlGeneratorService {
 		StringBuilder markers = new StringBuilder();
 		for (RoutePOJO decoracion : leg.getDecorationElements()) {
 			String elementPrefix = "decoration_" + decoracion.getIdRoute().toString();
-			markers.append("        var " + elementPrefix).append("_marker = L.marker([").append(decoracion.getLat1())
+			markers.append("            var " + elementPrefix).append("_marker = L.marker([").append(decoracion.getLat1())
 					.append(", ").append(decoracion.getLon1()).append("], { icon: new L.icon({ html: '")
 					.append(decoracion.getName()).append("', iconUrl: ").append(elementPrefix)
 					.append("_icon, iconSize: [24, 24], iconAnchor: [12, 12], popupAnchor: [12, 0] }) }).addTo(mymap);")
@@ -86,19 +124,19 @@ public class MapHtmlGeneratorServiceImpl implements MapHtmlGeneratorService {
 		for (RoutePOJO el : leg.getRouteElements()) {
 			String elementPrefix = "decoration_" + el.getIdRoute().toString();
 			if (el.getLat2() == null) {
-				markers.append("        var " + elementPrefix).append("_marker = L.marker([").append(el.getLat1())
+				markers.append("            var " + elementPrefix).append("_marker = L.marker([").append(el.getLat1())
 						.append(", ").append(el.getLon1()).append("], { icon: new L.icon({ html: '")
 						.append(el.getName()).append("', iconUrl: ").append(elementPrefix)
 						.append("_icon, iconSize: [24, 24], iconAnchor: [12, 12], popupAnchor: [12, 0] }) }).addTo(mymap);")
 						.append(CR);
 			} else {
-				markers.append("        var " + elementPrefix + "_line = L.polyline([" + CR);
-				markers.append("            [").append(el.getLat1()).append(", ").append(el.getLon1()).append("],")
+				markers.append("            var " + elementPrefix + "_line = L.polyline([" + CR);
+				markers.append("                [").append(el.getLat1()).append(", ").append(el.getLon1()).append("],")
 						.append(CR);
-				markers.append("            [").append(el.getLat2()).append(", ").append(el.getLon2()).append("],")
+				markers.append("                [").append(el.getLat2()).append(", ").append(el.getLon2()).append("],")
 						.append(CR);
-				markers.append("        ]).addTo(mymap);").append(CR);
-				markers.append("        " + elementPrefix + "_line.setStyle({ color: '#000000' });").append(CR);
+				markers.append("            ]).addTo(mymap);").append(CR);
+				markers.append("            " + elementPrefix + "_line.setStyle({ color: '#000000' });").append(CR);
 			}
 		}		
 		
@@ -112,7 +150,7 @@ public class MapHtmlGeneratorServiceImpl implements MapHtmlGeneratorService {
 				String boatName = race.getBoats().get(track.getTrack().getIdBoat()).getName();
 				String jsonFilename = "tracks"+raceId+"-"+legId+"-"+track.getTrack().getIdBoat()+".js";
 				jsImports.append("    <script src=\"tracks/" + jsonFilename + "\"></script>" + CR);
-				generaJson(jsonFilename,boatName,track);
+				generaYEscribeJson(jsonFilename,boatName,track);
 			}
 		}
 		return jsImports.toString();
@@ -143,10 +181,16 @@ public class MapHtmlGeneratorServiceImpl implements MapHtmlGeneratorService {
         return script.toString();
 	}
 	
+	protected static String generaYEscribeJson(final String filename, final String boatName, final EstelaTrack track) {
+		String json = generaJson(boatName, track);
+		ExtendedFileUtils.writeFile(json, "G:\\Mi unidad\\Barco\\Regatas\\202001_VI_REGATA_INTERCLUBES_RIA_DE_PONTEVEDRA\\tracks\\tracks\\"+filename);
+		return json;
+	}
+	
 	/**
 	 * Basado en https://gis.stackexchange.com/questions/123078/add-custom-variables-to-leaflet-polyline
      */
-	protected static String generaJson(final String filename, final String boatName, final EstelaTrack track) {
+	protected static String generaJson(final String boatName, final EstelaTrack track) {
 		String jsonVariableName = ("json_" + normalizeName(boatName));
 		StringBuilder json = new StringBuilder();
 		json.append("        var ").append(jsonVariableName).append(" = ").append("{").append(CR);
@@ -221,7 +265,6 @@ public class MapHtmlGeneratorServiceImpl implements MapHtmlGeneratorService {
 		json.append("            \"length\": \"" + Nautical.formatDistance(length) + "\"").append(CR);
 		json.append("        };").append(CR);
 		LOGGER.info("{}: {} mts.", boatName, Nautical.formatDistance(length));
-		ExtendedFileUtils.writeFile(json.toString(), "G:\\Mi unidad\\Barco\\Regatas\\202001_VI_REGATA_INTERCLUBES_RIA_DE_PONTEVEDRA\\tracks\\tracks\\"+filename);
 		return json.toString();
 	}
 
@@ -237,7 +280,12 @@ public class MapHtmlGeneratorServiceImpl implements MapHtmlGeneratorService {
 		}
 	}
 
-	protected static String getInterfaz(Collection<BoatPOJO> boats, boolean multiple) {
+	protected static String getInterfaz(EstelaRace race, Integer legId, boolean multiple) {
+		Collection<BoatPOJO> boats = new ArrayList<>();
+		EstelaRaceLeg leg = race.getLegs().get(legId);
+		for ( EstelaTrack t : leg.getTracks().values() ) {
+			boats.add(race.getBoats().get(t.getTrack().getIdBoat()));
+		}
 		StringBuilder sb = new StringBuilder();
 		if (multiple) {
 			sb.append(generateButtons(boats));
@@ -263,6 +311,9 @@ public class MapHtmlGeneratorServiceImpl implements MapHtmlGeneratorService {
 		buttons.append("        <div class=\"fieldset\">").append(CR);
 		buttons.append("            <fieldset>").append(CR);
 		for (BoatPOJO boat : boats) {
+			
+			
+			
 			String normalizedName = normalizeName(boat.getName());
 			buttons.append("                <div class=\"izda\"><input type=\"checkbox\" name=\"check_").append(normalizedName)
 					.append("\" id=\"").append(normalizedName).append("\" checked=\"checked\">").append(boat.getName())
@@ -305,5 +356,12 @@ public class MapHtmlGeneratorServiceImpl implements MapHtmlGeneratorService {
 			return new Line( new Point( r.getLat1().doubleValue(), r.getLon1().doubleValue() ),
 					new Point( r.getLat2().doubleValue(), r.getLon2().doubleValue() ), r.getName() );
 		}
+	}
+
+
+	@Override
+	public String generateRaceAnalysis(Integer raceId, Integer legId, Integer boatId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

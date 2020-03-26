@@ -2,11 +2,9 @@ package com.capitanperegrina.boatraceanalyzer.service.impl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
-import com.capitanperegrina.boatraceanalyzer.service.IEstelaService;
 import com.capitanperegrina.boatraceanalyzer.service.MapHtmlGeneratorService;
 import com.capitanperegrina.estela.bean.EstelaRace;
 import com.capitanperegrina.estela.bean.EstelaRaceLeg;
@@ -100,10 +98,8 @@ public class NavionicsHtmlGeneratorServiceImpl extends MapHtmlGeneratorServiceIm
 			+ "    </div>" + CR
 			+ "</body>" + CR 
 			+ CR
-			+ "</html>";	
+			+ "</html>";
 	
-	@Autowired
-	private IEstelaService estelaService;
 	
 	@Override
 	public final String getHtml(Integer raceId, Integer legId, Integer boatId) {
@@ -124,7 +120,15 @@ public class NavionicsHtmlGeneratorServiceImpl extends MapHtmlGeneratorServiceIm
 				.replace("%ICONS%", icons)
 				.replace("%MARKERS%", markers)
 				.replace("%JS_IMPORTS%", jsImports)
-				.replace("%INTERFACE%", getInterfaz(race.getBoats().values(), boatId == null));
+				.replace("%INTERFACE%", getInterfaz(race, legId, boatId == null));
 		return ret;
+	}
+	
+	@Override
+	public final String generateRaceAnalysis(Integer raceId, Integer legId, Integer boatId) {
+		
+		Point center = this.estelaService.findLegCenter(legId);
+		
+		return null;
 	}
 }

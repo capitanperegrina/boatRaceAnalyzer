@@ -2,10 +2,8 @@ package com.capitanperegrina.boatraceanalyzer.service.impl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.capitanperegrina.boatraceanalyzer.service.IEstelaService;
 import com.capitanperegrina.boatraceanalyzer.service.MapHtmlGeneratorService;
 import com.capitanperegrina.estela.bean.EstelaRace;
 import com.capitanperegrina.estela.bean.EstelaRaceLeg;
@@ -103,9 +101,6 @@ public class OpenStreetMapHtmlGeneratorServiceImpl extends MapHtmlGeneratorServi
 			+ CR
 			+ "</html>";
 
-	@Autowired
-	private IEstelaService estelaService;
-
 	@Override
 	public final String getHtml(Integer raceId, Integer legId, Integer boatId) {
 
@@ -125,7 +120,7 @@ public class OpenStreetMapHtmlGeneratorServiceImpl extends MapHtmlGeneratorServi
 				.replace("%ICONS%", icons)
 				.replace("%MARKERS%", markers)
 				.replace("%JS_IMPORTS%", jsImports)
-				.replace("%INTERFACE%", getInterfaz(race.getBoats().values(), boatId == null));
+				.replace("%INTERFACE%", getInterfaz(race, legId, boatId == null));
 		return ret;
 	}
 }

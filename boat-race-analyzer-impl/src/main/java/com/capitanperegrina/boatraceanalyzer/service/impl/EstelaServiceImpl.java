@@ -138,4 +138,9 @@ public class EstelaServiceImpl implements IEstelaService {
     	Line boundaries = this.trackpointDao.findLegBoundaries(idLeg);
     	return boundaries.centralPosition();
     }
+
+	@Override
+	public List<BoatPOJO> readBoatsByRaceAndLeg(Integer idRace) {
+		return this.boatDao.findBoatsInRace(idRace);
+	}
 }

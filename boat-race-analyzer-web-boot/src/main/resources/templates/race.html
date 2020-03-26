@@ -1,0 +1,82 @@
+<!DOCTYPE html> 
+<html xmlns:th="http://www.thymeleaf.org"> 
+	<head>
+    	<title>%TITLE%</title>
+    	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    	<link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico" />
+    	<link rel="stylesheet" href="https://webapiv2.navionics.com/dist/webapi/webapi.min.css"/>
+    	<link rel="stylesheet" href="css/tracks.css"/>
+
+    	<link rel="stylesheet" href="css/leaflet.css" />
+    	<script src="js/leaflet.js"></script>
+    	<script type="text/javascript" src="https://webapiv2.navionics.com/dist/webapi/webapi.min.no-dep.js"></script>
+    	<script src="js/jquery.min.js"></script> 
+    	<script src="js/tracks.js"></script>
+<th:block th:each="track : ${boatRaceAnalysisBean.tracks}">		<script th:src="js/tracks/track.js?r=${boatRaceAnalysisBean.idRace}&l=${boatRaceAnalysisBean.idLeg}&b=${track}"></script>
+</th:block>    	
+    	<script> 
+	        var polylines = new L.FeatureGroup();
+        	var mymap = L.map('mapid');
+        	var navionics_overlay = new JNC.Leaflet.NavionicsOverlay({
+	            navKey: 'Navionics_webapi_03753',
+            	chartType: JNC.NAVIONICS_CHARTS.NAUTICAL,
+            	isTransparent: false,
+            	logoPayoff: false,
+            	zIndex: 1
+        	});
+        	mymap.setView([%LATITUDE%,%LONGITUDE%], %ZOOM%);
+        	navionics_overlay.addTo(mymap);
+%ICONS%
+%MARKERS%
+%SCRIPT% 			
+	    </script>
+	</head> 
+	<body>
+    	<div id="buttons">
+        	<div class="fieldset">
+	            <fieldset>
+<th:block th:each="boat : ${boatRaceAnalysisBean.boats}">
+                	<div class="izda"><input type="checkbox" name="check_${normalizedBoatName}" id="${normalizedBoatName}" checked="checked"/>${boatName}</div>
+</th:block>
+            	</fieldset>
+        	</div>
+    	</div>
+    	<div id="mapid" style="width: 1024px; height: 768px; margin: 0"></div>
+	    <div id="datosDerrota"> 
+        	<div class="group"> 
+	            <div class="title">Time</div> 
+            	<div id="dataTsp">-</div> 
+        	</div> 
+            <div class="group"> 
+                <div class="title">Lat</div> 
+                <div id="dataLon">-</div> 
+            </div> 
+            <div class="group"> 
+                <div class="title">Lon</div> 
+                <div id="dataLat">-</div> 
+            </div> 
+            <div class="group"> 
+                <div class="title">COG</div> 
+                <div id="dataCog">-</div> 
+            </div> 
+            <div class="group"> 
+                <div class="title">SOG</div> 
+                <div id="dataSog">-</div> 
+            </div> 
+            <div class="group"> 
+                <div class="title">VMG</div> 
+                <div id="dataVmg">-</div> 
+            </div> 
+            <div class="group"> 
+                <div class="title">DTD</div> 
+                <div id="dataDtd">-</div> 
+            </div> 
+            <div class="group"> 
+                <div class="title">&Delta;</div> 
+                <div id="dataDelta">-</div> 
+            </div> 
+	        <div class="clearfix"></div> 
+    	</div>
+	</body> 
+</html>

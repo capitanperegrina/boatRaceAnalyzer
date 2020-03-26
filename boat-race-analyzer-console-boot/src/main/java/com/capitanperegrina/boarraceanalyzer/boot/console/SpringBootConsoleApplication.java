@@ -8,6 +8,7 @@ import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.Banner;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -28,7 +29,12 @@ public class SpringBootConsoleApplication implements CommandLineRunner {
 	private IEstelaService estelaService;
 
 	@Autowired
-	private MapHtmlGeneratorService mapHtmlGeneratorService;
+	@Qualifier("navionicsHtmlGeneratorService")
+	private MapHtmlGeneratorService navionicsHtmlGeneratorService;
+	
+	@Autowired
+	@Qualifier("openStreetMapHtmlGeneratorService")
+	private MapHtmlGeneratorService openStreetMapHtmlGeneratorService;	
 
 	public static void main(String[] args) {
 		LOGGER.info("STARTING THE APPLICATION");
@@ -60,15 +66,29 @@ public class SpringBootConsoleApplication implements CommandLineRunner {
 //          this.estelaService.importCvsToDatabase(1, 2, 6, 13, "G:\\Mi unidad\\Barco\\Regatas\\202001_VI_REGATA_INTERCLUBES_RIA_DE_PONTEVEDRA\\tracks\\race5423atxurri.csv");
 //          this.estelaService.importCvsToDatabase(1, 2, 7, 14, "G:\\Mi unidad\\Barco\\Regatas\\202001_VI_REGATA_INTERCLUBES_RIA_DE_PONTEVEDRA\\tracks\\race5423mou.csv");
 
+			// Importar datos de la Etapa 2 - una vez imporados: comentar.
+//            this.estelaService.importCvsToDatabase(1, 3, 2, 15, "G:\\Mi unidad\\Barco\\Regatas\\202001_VI_REGATA_INTERCLUBES_RIA_DE_PONTEVEDRA\\tracks\\race5513cassandra.csv");
+//            this.estelaService.importCvsToDatabase(1, 3, 3, 16, "G:\\Mi unidad\\Barco\\Regatas\\202001_VI_REGATA_INTERCLUBES_RIA_DE_PONTEVEDRA\\tracks\\race5513patela.csv");
+//            this.estelaService.importCvsToDatabase(1, 3, 4, 17, "G:\\Mi unidad\\Barco\\Regatas\\202001_VI_REGATA_INTERCLUBES_RIA_DE_PONTEVEDRA\\tracks\\race5513peregrina.csv");
+			
 			// Generar análisis de la 1ª etapa
-			FileUtils.write(new File(
-					"G:\\Mi unidad\\Barco\\Regatas\\202001_VI_REGATA_INTERCLUBES_RIA_DE_PONTEVEDRA\\tracks\\006_001_tracks.html"),
-					this.mapHtmlGeneratorService.getHtml(1, 1, null), Charset.forName("UTF-8"));
+//			FileUtils.write(new File(
+//					"G:\\Mi unidad\\Barco\\Regatas\\202001_VI_REGATA_INTERCLUBES_RIA_DE_PONTEVEDRA\\tracks\\006_001_tracks.html"),
+//					this.mapHtmlGeneratorService.getHtml(1, 1, null), Charset.forName("UTF-8"));
 
 			// Generar análisis de la 2ª etapa
+//			FileUtils.write(new File(
+//					"G:\\Mi unidad\\Barco\\Regatas\\202001_VI_REGATA_INTERCLUBES_RIA_DE_PONTEVEDRA\\tracks\\006_002_tracks.html"),
+//					this.mapHtmlGeneratorService.getHtml(1, 2, null), Charset.forName("UTF-8"));
+
+			// Generar análisis de la 3ª etapa
 			FileUtils.write(new File(
-					"G:\\Mi unidad\\Barco\\Regatas\\202001_VI_REGATA_INTERCLUBES_RIA_DE_PONTEVEDRA\\tracks\\006_002_tracks.html"),
-					this.mapHtmlGeneratorService.getHtml(1, 2, null), Charset.forName("UTF-8"));
+					"G:\\Mi unidad\\Barco\\Regatas\\202001_VI_REGATA_INTERCLUBES_RIA_DE_PONTEVEDRA\\tracks\\006_003_tracks.html"),
+					this.navionicsHtmlGeneratorService.getHtml(1, 3, null), Charset.forName("UTF-8"));
+			
+			FileUtils.write(new File(
+					"G:\\Mi unidad\\Barco\\Regatas\\202001_VI_REGATA_INTERCLUBES_RIA_DE_PONTEVEDRA\\tracks\\OSM_006_003_tracks.html"),
+					this.openStreetMapHtmlGeneratorService.getHtml(1, 3, null), Charset.forName("UTF-8"));			
 
 			// Generar análisis individualizado
 //          for ( int i=1; i<=7; i++ ) {
