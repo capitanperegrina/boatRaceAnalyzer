@@ -88,7 +88,7 @@ public class SpringBootConsoleApplication implements CommandLineRunner {
 			
 			FileUtils.write(new File(
 					"G:\\Mi unidad\\Barco\\Regatas\\202001_VI_REGATA_INTERCLUBES_RIA_DE_PONTEVEDRA\\tracks\\OSM_006_003_tracks.html"),
-					this.openStreetMapHtmlGeneratorService.getHtml(1, 3, null), Charset.forName("UTF-8"));			
+					this.openStreetMapHtmlGeneratorService.getHtml(1, 3, null), Charset.forName("UTF-8"));
 
 			// Generar análisis individualizado
 //          for ( int i=1; i<=7; i++ ) {
