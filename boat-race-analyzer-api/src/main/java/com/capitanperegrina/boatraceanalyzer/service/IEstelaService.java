@@ -1,18 +1,18 @@
 package com.capitanperegrina.boatraceanalyzer.service;
 
-import java.util.List;
-
-import com.capitanperegrina.boatraceanalyzer.model.entity.table.BoatPOJO;
+import com.capitanperegrina.boatraceanalyzer.model.entity.table.BoatEntity;
 import com.capitanperegrina.estela.bean.EstelaRace;
 import com.capitanperegrina.geo.elements.Point;
 
+import java.util.List;
+
 public interface IEstelaService {
 
-	EstelaRace readEstelaRace( Integer idRace );
-	
-	List<BoatPOJO> readBoatsByRaceAndLeg(Integer idRace);
-	
+    EstelaRace readEstelaRace(Integer idRace);
+
+    List<BoatEntity> readBoatsByRaceAndLeg(Integer idRace);
+
     void importCvsToDatabase(Integer idRace, Integer idLeg, Integer idBoat, Integer idTrack, String fileName);
-    
+
     Point findLegCenter(Integer idLeg);
 }

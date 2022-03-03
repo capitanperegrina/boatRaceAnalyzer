@@ -1,0 +1,83 @@
+openapi: 3.0.2
+info:
+  title: BoatRaceAnalyzer
+  description: "Tutorials on Spring Boot and Java."
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: yo@capitanperegrina.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 0.0.1-SNAPSHOT
+externalDocs:
+  description: More info at capitanperegrina.com
+  url: https://capitanperegrina.com/boatRaceAnalyzer/api/doc
+servers:
+  - url: https://capitanperegrina.com/boatRaceAnalyzer/api
+
+tags:
+  - name: boat
+    description: Operations about boats
+
+paths:
+  /boat/{boatId}:
+    get:
+      tags:
+        - boat
+      summary: Get boat information
+      operationId: getBoatById
+      parameters:
+        - name: boatId
+          in: path
+          description: 'The id of the boat to be fetched'
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Boat'
+        404:
+          description: Boat not found
+          content: { }
+
+  /boat/{boatName}:
+    get:
+      tags:
+        - boat
+      summary: Get boat information
+      operationId: getBoatByName
+      parameters:
+        - name: boatName
+          in: path
+          description: 'The name of the boat to be fetched'
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Boat'
+        404:
+          description: Boat not found
+          content: { }
+
+components:
+  schemas:
+    Boat:
+      type: object
+      properties:
+        idBoat:
+          type: integer
+          description: "Boat id number"
+          example: 1
+        name:
+          type: string
+          description: "Boat name"
+          example: "Peregrina"

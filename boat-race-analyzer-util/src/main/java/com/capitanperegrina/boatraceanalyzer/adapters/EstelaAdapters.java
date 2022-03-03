@@ -3,7 +3,7 @@ package com.capitanperegrina.boatraceanalyzer.adapters;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.capitanperegrina.boatraceanalyzer.model.entity.table.TrackpointPOJO;
+import com.capitanperegrina.boatraceanalyzer.model.entity.table.TrackpointEntity;
 import com.capitanperegrina.estela.bean.EstelaCSV;
 
 public class EstelaAdapters {
@@ -12,11 +12,11 @@ public class EstelaAdapters {
         
     }
     
-    public static TrackpointPOJO toTrackpointPOJO( Integer idTrack, EstelaCSV in ) {
+    public static TrackpointEntity toTrackpointPOJO(Integer idTrack, EstelaCSV in ) {
         if ( in == null ) {
             return null;
         }
-        TrackpointPOJO out = new TrackpointPOJO();
+        TrackpointEntity out = new TrackpointEntity();
         out.setIdTrackPoint(null);
         out.setIdTrack(idTrack);
         out.setTsp(in.getTime());
@@ -28,8 +28,8 @@ public class EstelaAdapters {
         return out;
     }
     
-    public static List<TrackpointPOJO> toTrackpointPOJOList( Integer idTrack, List<EstelaCSV> in ) {
-        List<TrackpointPOJO> out = new ArrayList<>();
+    public static List<TrackpointEntity> toTrackpointPOJOList(Integer idTrack, List<EstelaCSV> in ) {
+        List<TrackpointEntity> out = new ArrayList<>();
         if ( in == null ) {
             return out;
         }

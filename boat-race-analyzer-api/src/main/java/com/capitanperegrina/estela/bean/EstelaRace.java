@@ -1,40 +1,42 @@
 package com.capitanperegrina.estela.bean;
 
+import com.capitanperegrina.boatraceanalyzer.model.entity.table.BoatEntity;
+import com.capitanperegrina.boatraceanalyzer.model.entity.table.RaceEntity;
+
 import java.util.HashMap;
 import java.util.Map;
 
-import com.capitanperegrina.boatraceanalyzer.model.entity.table.BoatPOJO;
-import com.capitanperegrina.boatraceanalyzer.model.entity.table.RacePOJO;
-
 public class EstelaRace {
 
-	private RacePOJO race;
-	private final Map<Integer,BoatPOJO> boats;
-	private final Map<Integer,EstelaRaceLeg> legs;
+    private final Map<Integer, BoatEntity> boats;
 
-	public EstelaRace() {
-		this.boats = new HashMap<>();
-		this.legs = new HashMap<>();
-	}
+    private final Map<Integer, EstelaRaceLeg> legs;
 
-	public RacePOJO getRace() {
-		return this.race;
-	}
+    private RaceEntity race;
 
-	public void setRace(RacePOJO race) {
-		this.race = race;
-	}
+    public EstelaRace() {
+        this.boats = new HashMap<>();
+        this.legs = new HashMap<>();
+    }
 
-	public Map<Integer, BoatPOJO> getBoats() {
-		return this.boats;
-	}
+    public RaceEntity getRace() {
+        return this.race;
+    }
 
-	public Map<Integer,EstelaRaceLeg> getLegs() {
-		return this.legs;
-	}
+    public void setRace(final RaceEntity race) {
+        this.race = race;
+    }
 
-	@Override
-	public String toString() {
-		return "EstelaRace [race=" + this.race + ", boats=" + this.boats + ", legs=" + this.legs + "]";
-	}
+    public Map<Integer, BoatEntity> getBoats() {
+        return this.boats;
+    }
+
+    public Map<Integer, EstelaRaceLeg> getLegs() {
+        return this.legs;
+    }
+
+    @Override
+    public String toString() {
+        return "EstelaRace [race=" + this.race + ", boats=" + this.boats + ", legs=" + this.legs + "]";
+    }
 }

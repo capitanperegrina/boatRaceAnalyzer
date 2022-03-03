@@ -25,3 +25,6 @@ hs_err_pid*
 boat-race-analyzer-api/.classpath
 .settings/
 boat-race-analyzer-cliapp/.classpath
+*.iml
+boat-race-analyzer-api-rest-client/src/.DS_Store
+.DS_Store

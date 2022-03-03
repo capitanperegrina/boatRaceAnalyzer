@@ -1,81 +1,86 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	
-	<parent>
-		<groupId>com.capitanperegrina</groupId>
-		<artifactId>boat-race-analyzer</artifactId>
-		<version>0.1-SNAPSHOT</version>
-	</parent>
-	
-	<groupId>com.capitanperegrina.boat-race-analyzer</groupId>
-	<artifactId>boat-race-analyzer-util</artifactId>
-	<name>boat-race-analyzer-util</name>
-	<description>Boat Race Analyzer Utils</description>
-	<url>http://www.capitanperegrina.com/boatRaceAnalyzer</url>
-	<packaging>jar</packaging>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-	<dependencies>
+    <parent>
+        <groupId>com.capitanperegrina</groupId>
+        <artifactId>boat-race-analyzer</artifactId>
+        <version>0.1-SNAPSHOT</version>
+    </parent>
 
-		<dependency>
-			<groupId>com.capitanperegrina.boat-race-analyzer</groupId>
-			<artifactId>boat-race-analyzer-api</artifactId>
-		</dependency>
-		
-		<dependency>
-		    <groupId>org.springframework</groupId>
-		    <artifactId>spring-core</artifactId>
-		</dependency>
-		
-		<dependency>
-		    <groupId>org.springframework</groupId>
-		    <artifactId>spring-context</artifactId>
-		</dependency>
-		
-		<dependency>
-		    <groupId>io.jenetics</groupId>
-		    <artifactId>jpx</artifactId>
-		</dependency>
+    <groupId>com.capitanperegrina.boat-race-analyzer</groupId>
+    <artifactId>boat-race-analyzer-util</artifactId>
+    <name>boat-race-analyzer-util</name>
+    <description>Boat Race Analyzer Utils</description>
+    <url>http://www.capitanperegrina.com/boatRaceAnalyzer</url>
+    <packaging>jar</packaging>
 
-		<dependency>
-		    <groupId>org.apache.commons</groupId>
-		    <artifactId>commons-lang3</artifactId>
-		</dependency>
-            
+    <dependencies>
+
+        <dependency>
+            <groupId>com.capitanperegrina.boat-race-analyzer</groupId>
+            <artifactId>boat-race-analyzer-api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>io.jenetics</groupId>
+            <artifactId>jpx</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-collections4</artifactId>
         </dependency>
-		
-		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-		</dependency>
-			
-	    <dependency>
-	        <groupId>org.slf4j</groupId>
-	        <artifactId>slf4j-api</artifactId>
-	    </dependency>
-        
-		<dependency>
-		    <groupId>com.google.code.gson</groupId>
-		    <artifactId>gson</artifactId>
-		</dependency>
-	</dependencies>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.6.2</version>
-				<configuration>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.annotation</groupId>
+            <artifactId>javax.annotation-api</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.6.2</version>
+                <configuration>
                     <debug>true</debug>
-					<source>${maven.compiler.source}</source>
-					<target>${maven.compiler.target}</target>
-				</configuration>
-			</plugin>
-		</plugins>	
-	</build>  
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

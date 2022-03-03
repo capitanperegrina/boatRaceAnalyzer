@@ -1,96 +1,104 @@
 package com.capitanperegrina.boatraceanalyzer.bean;
 
+import com.capitanperegrina.geo.elements.Point;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import com.capitanperegrina.geo.elements.Point;
-
 public class BoatRaceAnalysisBean {
 
-	private Integer idRace;
-	private Integer idLeg;
-	private String title;
-	private final List<Integer> tracks = new ArrayList<>();
-	private final List<BoatNameBean> boats = new ArrayList<>();
-	private Point centerTrack;
-	private String icons;
-	private String markers;
-	private String script;
+    private final List<Integer> tracks = new ArrayList<>();
 
-	public BoatRaceAnalysisBean(Integer idRace, Integer idLeg) {
-		super();
-		this.idRace = idRace;
-		this.idLeg = idLeg;
-	}
+    private final List<BoatNameBean> boats = new ArrayList<>();
 
-	public Integer getIdRace() {
-		return this.idRace;
-	}
+    private Integer idRace;
 
-	public void setIdRace(Integer idRace) {
-		this.idRace = idRace;
-	}
+    private Integer idLeg;
 
-	public Integer getIdLeg() {
-		return this.idLeg;
-	}
+    private String title;
 
-	public void setIdLeg(Integer idLeg) {
-		this.idLeg = idLeg;
-	}
+    private Point centerTrack;
 
-	public String getTitle() {
-		return title;
-	}
+    private String icons;
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
+    private String markers;
 
-	public List<Integer> getTracks() {
-		return this.tracks;
-	}
+    private String script;
 
-	public List<BoatNameBean> getBoats() {
-		return this.boats;
-	}
+    public BoatRaceAnalysisBean(final Integer idRace, final Integer idLeg) {
+        super();
+        this.idRace = idRace;
+        this.idLeg = idLeg;
+    }
 
-	public Point getCenterTrack() {
-		return centerTrack;
-	}
+    public Integer getIdRace() {
+        return this.idRace;
+    }
 
-	public void setCenterTrack(Point centerTrack) {
-		this.centerTrack = centerTrack;
-	}
+    public void setIdRace(final Integer idRace) {
+        this.idRace = idRace;
+    }
 
-	public String getIcons() {
-		return icons;
-	}
+    public Integer getIdLeg() {
+        return this.idLeg;
+    }
 
-	public void setIcons(String icons) {
-		this.icons = icons;
-	}
+    public void setIdLeg(final Integer idLeg) {
+        this.idLeg = idLeg;
+    }
 
-	public String getMarkers() {
-		return markers;
-	}
+    public String getTitle() {
+        return this.title;
+    }
 
-	public void setMarkers(String markers) {
-		this.markers = markers;
-	}
+    public void setTitle(final String title) {
+        this.title = title;
+    }
 
-	public String getScript() {
-		return script;
-	}
+    public List<Integer> getTracks() {
+        return this.tracks;
+    }
 
-	public void setScript(String script) {
-		this.script = script;
-	}
+    public List<BoatNameBean> getBoats() {
+        return this.boats;
+    }
 
-	@Override
-	public String toString() {
-		return "BoatRaceAnalysisBean [idRace=" + idRace + ", idLeg=" + idLeg + ", title=" + title + ", tracks=" + tracks
-				+ ", boats=" + boats + ", centerTrack=" + centerTrack + ", icons=" + icons + ", markers=" + markers
-				+ ", script=" + script + "]";
-	}
+    public Point getCenterTrack() {
+        return this.centerTrack;
+    }
+
+    public void setCenterTrack(final Point centerTrack) {
+        this.centerTrack = centerTrack;
+    }
+
+    public String getIcons() {
+        return this.icons;
+    }
+
+    public void setIcons(final String icons) {
+        this.icons = icons;
+    }
+
+    public String getMarkers() {
+        return this.markers;
+    }
+
+    public void setMarkers(final String markers) {
+        this.markers = markers;
+    }
+
+    public String getScript() {
+        return this.script;
+    }
+
+    public void setScript(final String script) {
+        this.script = script;
+    }
+
+    @Override
+    public String toString() {
+        return "BoatRaceAnalysisBean [idRace=" + this.idRace + ", idLeg=" + this.idLeg + ", title=" + this.title + ", tracks=" + this.tracks
+                + ", boats=" + this.boats + ", centerTrack=" + this.centerTrack + ", icons=" + this.icons + ", markers=" + this.markers
+                + ", script=" + this.script + "]";
+    }
 }
