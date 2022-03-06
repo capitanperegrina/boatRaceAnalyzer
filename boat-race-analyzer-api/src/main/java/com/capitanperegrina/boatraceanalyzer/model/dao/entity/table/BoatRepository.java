@@ -21,4 +21,6 @@ public interface BoatRepository {
     List<BoatEntity> buscaVarios(BoatEntity obj);
 
     List<BoatEntity> findBoatsInRace(Integer idRace);
+
+    BoatEntity findBoatByName(final String name);
 }

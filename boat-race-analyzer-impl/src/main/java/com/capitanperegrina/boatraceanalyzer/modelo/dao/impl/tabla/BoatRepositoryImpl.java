@@ -202,4 +202,19 @@ public class BoatRepositoryImpl extends MySQLRepository implements BoatRepositor
         }
         return this.jdbcTemplate.query(q.toString(), p, new BoatRowMapper());
     }
+
+    @Override
+    public BoatEntity findBoatByName(final String name) {
+        final StringBuilder q = new StringBuilder();
+        final Object[] p = {name};
+        final StringBuilder condition = new StringBuilder();
+        condition.append("name = ? ");
+        q.append(this.generateSelectQuery(condition.toString()));
+        if (LOGGER.isTraceEnabled()) {
+            LOGGER.trace(QueryUtils.queryLog(this.engine, q, p));
+        }
+        return this.jdbcTemplate.queryForObject(q.toString(), p, new BoatRowMapper());
+    }
+
+
 }

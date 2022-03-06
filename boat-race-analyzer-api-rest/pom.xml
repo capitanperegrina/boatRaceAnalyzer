@@ -17,9 +17,52 @@
     <packaging>jar</packaging>
 
     <dependencies>
+
         <dependency>
             <groupId>com.capitanperegrina.boat-race-analyzer</groupId>
             <artifactId>boat-race-analyzer-api-first</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.capitanperegrina.boat-race-analyzer</groupId>
+            <artifactId>boat-race-analyzer-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.capitanperegrina.boat-race-analyzer</groupId>
+            <artifactId>boat-race-analyzer-impl</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.swagger</groupId>
+            <artifactId>swagger-annotations</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.annotation</groupId>
+            <artifactId>javax.annotation-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.openapitools</groupId>
+            <artifactId>jackson-databind-nullable</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 
@@ -37,26 +80,56 @@
             </plugin>
 
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.1.1</version>
+                <executions>
+                    <execution>
+                        <id>unpack</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>com.capitanperegrina.boat-race-analyzer</groupId>
+                                    <artifactId>boat-race-analyzer-api-first</artifactId>
+                                    <type>jar</type>
+                                    <overWrite>false</overWrite>
+                                    <includes>**/*.yml</includes>
+                                </artifactItem>
+                            </artifactItems>
+                            <outputDirectory>${project.build.directory}/classes/</outputDirectory>
+                            <overWriteReleases>true</overWriteReleases>
+                            <overWriteSnapshots>false</overWriteSnapshots>
+                            <overWriteIfNewer>true</overWriteIfNewer>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
                 <groupId>org.openapitools</groupId>
                 <artifactId>openapi-generator-maven-plugin</artifactId>
-                <version>4.2.3</version>
+                <version>5.1.0</version>
                 <executions>
                     <execution>
                         <goals>
                             <goal>generate</goal>
                         </goals>
                         <configuration>
+                            <verbose>true</verbose>
                             <inputSpec>
-                                ${project.basedir}/src/main/resources/openapi.yml
+                                ${project.build.directory}/classes/openapi.yml
                             </inputSpec>
                             <generatorName>spring</generatorName>
-                            <apiPackage>com.capitanperegrina.boatraceanalyzer.api</apiPackage>
-                            <modelPackage>com.capitanperegrina.boatraceanalyzer.model</modelPackage>
-                            <supportingFilesToGenerate>
-                                ApiUtil.java
-                            </supportingFilesToGenerate>
+                            <packageName>com.capitanperegrina.boatraceanalyzer.rest</packageName>
+                            <apiPackage>com.capitanperegrina.boatraceanalyzer.rest.api</apiPackage>
+                            <modelPackage>com.capitanperegrina.boatraceanalyzer.rest.model</modelPackage>
                             <configOptions>
-                                <delegatePattern>true</delegatePattern>
+                                <interfaceOnly>true</interfaceOnly>
+                                <sourceFolder>/</sourceFolder>
                             </configOptions>
                         </configuration>
                     </execution>

@@ -39,7 +39,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Boat'
+                $ref: '#/components/schemas/BoatDTO'
         404:
           description: Boat not found
           content: { }
@@ -63,14 +63,14 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Boat'
+                $ref: '#/components/schemas/BoatDTO'
         404:
           description: Boat not found
           content: { }
 
 components:
   schemas:
-    Boat:
+    BoatDTO:
       type: object
       properties:
         idBoat:
