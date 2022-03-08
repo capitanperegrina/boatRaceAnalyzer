@@ -28,3 +28,6 @@ boat-race-analyzer-cliapp/.classpath
 *.iml
 boat-race-analyzer-api-rest-client/src/.DS_Store
 .DS_Store
+boat-race-analyzer-api-first/target
+boat-race-analyzer-api-rest/target
+boat-race-analyzer-api-rest-client/target
