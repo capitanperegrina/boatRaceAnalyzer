@@ -25,7 +25,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<com.capitanperegrina.common.version>1.5.3</com.capitanperegrina.common.version>
 		<com.capitanperegrina.version>${project.version}</com.capitanperegrina.version>
-		<spring.version>5.2.1.RELEASE</spring.version>
+		<spring.version>5.2.24.RELEASE</spring.version>
 		<spring-boot.version>2.0.3.RELEASE</spring-boot.version>
         <slf4j.version>1.7.25</slf4j.version>
         <geotools.version>22-RC</geotools.version>
